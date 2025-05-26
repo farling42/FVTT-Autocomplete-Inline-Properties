@@ -39,9 +39,9 @@ export const DATA_MODE = {
  * Getter functions corresponding to the data modes defined in {@link DATA_MODE}
  */
 export const DATA_GETTERS = {
-    [DATA_MODE.ENTITY_DATA]: (sheet) => sheet.object?.toObject(false),
-    [DATA_MODE.DOCUMENT_DATA]: (sheet) => sheet.object?.toObject(false),
-    [DATA_MODE.ROLL_DATA]: (sheet) => sheet.object?.getRollData(),
+    [DATA_MODE.ENTITY_DATA]: (sheet) => sheet.document?.toObject(false),
+    [DATA_MODE.DOCUMENT_DATA]: (sheet) => sheet.document?.toObject(false),
+    [DATA_MODE.ROLL_DATA]: (sheet) => sheet.document?.getRollData(),
     [DATA_MODE.OWNING_ACTOR_DATA]: (sheet) =>
         _getSheetDocumentParentActor(sheet)?.toObject(false) ?? _getFallbackActorData(),
     [DATA_MODE.OWNING_ACTOR_ROLL_DATA]: (sheet) =>
@@ -57,7 +57,7 @@ export const DATA_GETTERS = {
  * @private
  */
 function _getSheetDocumentParentActor(sheet) {
-    const parent = sheet.object?.actor ?? sheet.object?.parent;
+    const parent = sheet.document?.actor ?? sheet.document?.parent;
     return parent && parent instanceof Actor ? parent : null;
 }
 
@@ -160,203 +160,230 @@ function _getFallbackParentItemRollData(item) {
  */
 
 /** @type {AIPPackageConfig[]} */
-export const PACKAGE_CONFIG = [
-    {
-        // contributed by https://github.com/schultzcole
-        packageName: "dnd5e",
-        sheetClasses: [
-            {
-                name: "ActorSheetFlags",
-                fieldConfigs: ["system"].flatMap((key) => [
-                    {
-                        selector: `input[type="text"][name^="${key}.bonuses"]`,
-                        showButton: true,
-                        allowHotkey: true,
-                        dataMode: DATA_MODE.ROLL_DATA,
-                    },
-                ]),
-            },
-            {
-                name: "ItemSheet5e",
-                fieldConfigs: ["system"].flatMap((key) => [
-                    {
-                        selector: `.tab.details input[type="text"][name="${key}.attackBonus"]`,
-                        showButton: true,
-                        allowHotkey: true,
-                        dataMode: DATA_MODE.CUSTOM,
-                        customDataGetter: (sheet) =>
-                            sheet.object.getRollData() ?? _getFallbackActorRollData(sheet.object),
-                        inlinePrefix: "@",
-                    },
-                    {
-                        selector: `.tab.details input[type="text"][name^="${key}.damage"]`,
-                        showButton: true,
-                        allowHotkey: true,
-                        dataMode: DATA_MODE.CUSTOM,
-                        customDataGetter: (sheet) =>
-                            sheet.object.getRollData() ?? _getFallbackActorRollData(sheet.object),
-                        inlinePrefix: "@",
-                    },
-                    {
-                        selector: `.tab.details input[type="text"][name="${key}.formula"]`,
-                        showButton: true,
-                        allowHotkey: true,
-                        dataMode: DATA_MODE.CUSTOM,
-                        customDataGetter: (sheet) =>
-                            sheet.object.getRollData() ?? _getFallbackParentItemRollData(sheet.object),
-                        inlinePrefix: "@",
-                    },
-                ]),
-            },
-            {
-                name: "ActiveEffectConfig",
-                fieldConfigs: [
-                    {
-                        selector: `.tab[data-tab="effects"] .key input[type="text"]`,
-                        defaultPath: "system",
-                        showButton: true,
-                        allowHotkey: true,
-                        dataMode: DATA_MODE.OWNING_ACTOR_DATA,
-                    },
-                ],
-            },
-        ],
-    },
-    {
-        // contributed by https://github.com/MikauSchekzen
-        packageName: "pf1",
-        sheetClasses: [
-            {
-                name: "ItemSheetPF",
-                fieldConfigs: [
-                    {
-                        selector: `input.formula[type="text"]`,
-                        showButton: true,
-                        allowHotkey: true,
-                        dataMode: DATA_MODE.ROLL_DATA,
-                    },
-                    {
-                        selector: `textarea.context-text`,
-                        showButton: true,
-                        allowHotkey: true,
-                        dataMode: DATA_MODE.ROLL_DATA,
-                    },
-                ],
-            },
-            {
-                name: "ActorSheetPF",
-                fieldConfigs: [
-                    {
-                        selector: `input.formula[type="text"]`,
-                        showButton: true,
-                        allowHotkey: true,
-                        dataMode: DATA_MODE.ROLL_DATA,
-                    },
-                    {
-                        selector: `textarea.context-text`,
-                        showButton: true,
-                        allowHotkey: true,
-                        dataMode: DATA_MODE.ROLL_DATA,
-                    },
-                ],
-            },
-            {
-                name: "ItemActionSheet",
-                fieldConfigs: [
-                    {
-                        selector: `input.formula[type="text"]`,
-                        showButton: true,
-                        allowHotkey: true,
-                        dataMode: DATA_MODE.ROLL_DATA,
-                    },
-                ],
-            },
-        ],
-    },
-    {
-        // contributed by https://github.com/cyr-
-        packageName: "sw5e",
-        sheetClasses: [
-            {
-                name: "ActorSheetFlags",
-                fieldConfigs: ["system"].flatMap((key) => [
-                    {
-                        selector: `input[type="text"][name^="${key}.bonuses"]`,
-                        showButton: true,
-                        allowHotkey: true,
-                        dataMode: DATA_MODE.ROLL_DATA,
-                    },
-                ]),
-            },
-            {
-                name: "ItemSheet5e",
-                fieldConfigs: ["system"].flatMap((key) => [
-                    {
-                        selector: `.tab.details input[type="text"][name="${key}.attackBonus"]`,
-                        showButton: true,
-                        allowHotkey: true,
-                        dataMode: DATA_MODE.CUSTOM,
-                        customDataGetter: (sheet) =>
-                            sheet.object.getRollData() ?? _getFallbackActorRollData(sheet.object),
-                        inlinePrefix: "@",
-                    },
-                    {
-                        selector: `.tab.details input[type="text"][name^="${key}.damage"]`,
-                        showButton: true,
-                        allowHotkey: true,
-                        dataMode: DATA_MODE.CUSTOM,
-                        customDataGetter: (sheet) =>
-                            sheet.object.getRollData() ?? _getFallbackActorRollData(sheet.object),
-                        inlinePrefix: "@",
-                    },
-                    {
-                        selector: `.tab.details input[type="text"][name="${key}.formula"]`,
-                        showButton: true,
-                        allowHotkey: true,
-                        dataMode: DATA_MODE.CUSTOM,
-                        customDataGetter: (sheet) =>
-                            sheet.object.getRollData() ?? _getFallbackActorRollData(sheet.object),
-                        inlinePrefix: "@",
-                    },
-                ]),
-            },
-            {
-                name: "ActiveEffectConfig",
-                fieldConfigs: [
-                    {
-                        selector: `.tab[data-tab="effects"] .key input[type="text"]`,
-                        defaultPath: "system",
-                        showButton: true,
-                        allowHotkey: true,
-                        dataMode: DATA_MODE.OWNING_ACTOR_DATA,
-                    },
-                ],
-            },
-        ],
-    },
-    {
-        packageName: "ds4",
-        sheetClasses: [
-            {
-                name: "ActiveEffectConfig",
-                fieldConfigs: [
-                    {
-                        selector: `.tab[data-tab="effects"] .key input[type="text"]`,
-                        defaultPath: "system",
-                        showButton: true,
-                        allowHotkey: true,
-                        dataMode: DATA_MODE.OWNING_ACTOR_DATA,
-                    },
-                    {
-                        selector: `.tab[data-tab="effects"] .value input[type="text"]`,
-                        defaultPath: "system",
-                        showButton: true,
-                        allowHotkey: true,
-                        dataMode: DATA_MODE.OWNING_ACTOR_DATA,
-                        inlinePrefix: "@",
-                    },
-                ],
-            },
-        ],
-    },
-];
+export let PACKAGE_CONFIG;
+
+export function setPackageConfig() {
+    PACKAGE_CONFIG = [
+        {
+            // contributed by https://github.com/schultzcole
+            packageName: "dnd5e",
+            sheetClasses: [
+                {
+                    name: "ProficiencyConfig",
+                    fieldConfigs: ["system"].flatMap((key) => [
+                        {
+                            selector: `input[type="text"][name*=".bonuses"]`,
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.ROLL_DATA,
+                        },
+                    ]),
+                },
+                {
+                    name: "ItemSheet5e",
+                    fieldConfigs: ["system"].flatMap((key) => [
+                        {
+                            selector: `.tab.details input[type="text"][name="${key}.attack.bonus"]`,
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.CUSTOM,
+                            customDataGetter: (sheet) =>
+                                sheet.document.getRollData() ?? _getFallbackActorRollData(sheet.document),
+                            inlinePrefix: "@",
+                        },
+                        {
+                            selector: `.tab.details input[type="text"][name^="${key}.damage"]`,
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.CUSTOM,
+                            customDataGetter: (sheet) =>
+                                sheet.document.getRollData() ?? _getFallbackActorRollData(sheet.document),
+                            inlinePrefix: "@",
+                        },
+                        {
+                            selector: `.tab.details input[type="text"][name="${key}.formula"]`,
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.CUSTOM,
+                            customDataGetter: (sheet) =>
+                                sheet.document.getRollData() ?? _getFallbackParentItemRollData(sheet.document),
+                            inlinePrefix: "@",
+                        },
+                    ]),
+                },
+                {
+                    name: "AttackSheet",    // Foundry V12+
+                    fieldConfigs: ["system"].flatMap((key) => [
+                        {
+                            selector: `.tab[data-tab="effect"] input[type="text"][name="attack.bonus"]`,
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.CUSTOM,
+                            customDataGetter: (sheet) =>  // sheet.document not available in the AttackSheet
+                                sheet.document.getRollData() ?? _getFallbackActorRollData(sheet.document),
+                            inlinePrefix: "@",
+                        },
+                        {
+                            selector: `.tab[data-tab="effect"] input[type="text"][name*="damage"]`,
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.CUSTOM,
+                            customDataGetter: (sheet) =>
+                                sheet.document.getRollData() ?? _getFallbackActorRollData(sheet.document),
+                            inlinePrefix: "@",
+                        }
+                    ]),
+                },
+                {
+                    name: "ActiveEffectConfig",
+                    fieldConfigs: [
+                        {
+                            selector: `.tab[data-tab="${(game.release.generation < 13) ? 'effects' : 'changes'}"] .key input[type="text"]`,
+                            defaultPath: "system",
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.OWNING_ACTOR_DATA,
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            // contributed by https://github.com/MikauSchekzen
+            packageName: "pf1",
+            sheetClasses: [
+                {
+                    name: "ItemSheetPF",
+                    fieldConfigs: [
+                        {
+                            selector: `input.formula[type="text"]`,
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.ROLL_DATA,
+                        },
+                        {
+                            selector: `textarea.context-text`,
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.ROLL_DATA,
+                        },
+                    ],
+                },
+                {
+                    name: "ActorSheetPF",
+                    fieldConfigs: [
+                        {
+                            selector: `input.formula[type="text"]`,
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.ROLL_DATA,
+                        },
+                        {
+                            selector: `textarea.context-text`,
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.ROLL_DATA,
+                        },
+                    ],
+                },
+                {
+                    name: "ItemActionSheet",
+                    fieldConfigs: [
+                        {
+                            selector: `input.formula[type="text"]`,
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.ROLL_DATA,
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            // contributed by https://github.com/cyr-
+            packageName: "sw5e",
+            sheetClasses: [
+                {
+                    name: "ActorSheetFlags",
+                    fieldConfigs: ["system"].flatMap((key) => [
+                        {
+                            selector: `input[type="text"][name^="${key}.bonuses"]`,
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.ROLL_DATA,
+                        },
+                    ]),
+                },
+                {
+                    name: "ItemSheet5e",
+                    fieldConfigs: ["system"].flatMap((key) => [
+                        {
+                            selector: `.tab.details input[type="text"][name="${key}.attackBonus"]`,
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.CUSTOM,
+                            customDataGetter: (sheet) =>
+                                sheet.document.getRollData() ?? _getFallbackActorRollData(sheet.document),
+                            inlinePrefix: "@",
+                        },
+                        {
+                            selector: `.tab.details input[type="text"][name^="${key}.damage"]`,
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.CUSTOM,
+                            customDataGetter: (sheet) =>
+                                sheet.document.getRollData() ?? _getFallbackActorRollData(sheet.document),
+                            inlinePrefix: "@",
+                        },
+                        {
+                            selector: `.tab.details input[type="text"][name="${key}.formula"]`,
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.CUSTOM,
+                            customDataGetter: (sheet) =>
+                                sheet.document.getRollData() ?? _getFallbackActorRollData(sheet.document),
+                            inlinePrefix: "@",
+                        },
+                    ]),
+                },
+                {
+                    name: "ActiveEffectConfig",
+                    fieldConfigs: [
+                        {
+                            selector: `.tab[data-tab="effects"] .key input[type="text"]`,
+                            defaultPath: "system",
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.OWNING_ACTOR_DATA,
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            packageName: "ds4",
+            sheetClasses: [
+                {
+                    name: "ActiveEffectConfig",
+                    fieldConfigs: [
+                        {
+                            selector: `.tab[data-tab="effects"] .key input[type="text"]`,
+                            defaultPath: "system",
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.OWNING_ACTOR_DATA,
+                        },
+                        {
+                            selector: `.tab[data-tab="effects"] .value input[type="text"]`,
+                            defaultPath: "system",
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.OWNING_ACTOR_DATA,
+                            inlinePrefix: "@",
+                        },
+                    ],
+                },
+            ],
+        },
+    ];
+}
