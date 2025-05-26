@@ -4,7 +4,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### 3.x.x
 
-Set minimum Foundry version to 11.
+- Set minimum Foundry version to 11.
+- Get basic support working by testing with dnd5e 3.3.1 on Foundry V11 and dnd 4.3.9 on Foundry V12.
 
 ### [2.9.1](https://github.com/ghost-fvtt/FVTT-Autocomplete-Inline-Properties/compare/v2.9.0...v2.9.1) (2023-07-17)
 
