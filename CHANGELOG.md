@@ -2,7 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### 3.x.x
+### 3.0.2
+
+- DND5E: Some updates to support the correct fields in actor proficiencies and weapon damage and attacks (also working in Foundry V13).
+
+### 3.0.1
 
 - Set minimum Foundry version to 11.
 - Get basic support working by testing with dnd5e 3.3.1 on Foundry V11 and dnd 4.3.9 on Foundry V12.
