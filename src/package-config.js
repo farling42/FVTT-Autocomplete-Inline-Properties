@@ -166,7 +166,7 @@ export const PACKAGE_CONFIG = [
         sheetClasses: [
             {
                 name: "ActorSheetFlags",
-                fieldConfigs: ["system", "data"].flatMap((key) => [
+                fieldConfigs: ["system"].flatMap((key) => [
                     {
                         selector: `input[type="text"][name^="${key}.bonuses"]`,
                         showButton: true,
@@ -177,7 +177,7 @@ export const PACKAGE_CONFIG = [
             },
             {
                 name: "ItemSheet5e",
-                fieldConfigs: ["system", "data"].flatMap((key) => [
+                fieldConfigs: ["system"].flatMap((key) => [
                     {
                         selector: `.tab.details input[type="text"][name="${key}.attackBonus"]`,
                         showButton: true,
@@ -212,7 +212,7 @@ export const PACKAGE_CONFIG = [
                 fieldConfigs: [
                     {
                         selector: `.tab[data-tab="effects"] .key input[type="text"]`,
-                        defaultPath: "data",
+                        defaultPath: "system",
                         showButton: true,
                         allowHotkey: true,
                         dataMode: DATA_MODE.OWNING_ACTOR_DATA,
@@ -278,7 +278,7 @@ export const PACKAGE_CONFIG = [
         sheetClasses: [
             {
                 name: "ActorSheetFlags",
-                fieldConfigs: ["system", "data"].flatMap((key) => [
+                fieldConfigs: ["system"].flatMap((key) => [
                     {
                         selector: `input[type="text"][name^="${key}.bonuses"]`,
                         showButton: true,
@@ -289,7 +289,7 @@ export const PACKAGE_CONFIG = [
             },
             {
                 name: "ItemSheet5e",
-                fieldConfigs: ["system", "data"].flatMap((key) => [
+                fieldConfigs: ["system"].flatMap((key) => [
                     {
                         selector: `.tab.details input[type="text"][name="${key}.attackBonus"]`,
                         showButton: true,
@@ -324,7 +324,7 @@ export const PACKAGE_CONFIG = [
                 fieldConfigs: [
                     {
                         selector: `.tab[data-tab="effects"] .key input[type="text"]`,
-                        defaultPath: "data",
+                        defaultPath: "system",
                         showButton: true,
                         allowHotkey: true,
                         dataMode: DATA_MODE.OWNING_ACTOR_DATA,
@@ -341,14 +341,14 @@ export const PACKAGE_CONFIG = [
                 fieldConfigs: [
                     {
                         selector: `.tab[data-tab="effects"] .key input[type="text"]`,
-                        defaultPath: "data",
+                        defaultPath: "system",
                         showButton: true,
                         allowHotkey: true,
                         dataMode: DATA_MODE.OWNING_ACTOR_DATA,
                     },
                     {
                         selector: `.tab[data-tab="effects"] .value input[type="text"]`,
-                        defaultPath: "data",
+                        defaultPath: "system",
                         showButton: true,
                         allowHotkey: true,
                         dataMode: DATA_MODE.OWNING_ACTOR_DATA,

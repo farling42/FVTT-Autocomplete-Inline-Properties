@@ -1,6 +1,6 @@
-import { Autocompleter } from "./autocompleter";
-import { logger } from "./logger";
-import { PACKAGE_CONFIG } from "./package-config";
+import { Autocompleter } from "./autocompleter.js";
+import { logger } from "./logger.js";
+import { PACKAGE_CONFIG } from "./package-config.js";
 
 /**
  * Register autocompletion for the given `packageConfig`

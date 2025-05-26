@@ -1,4 +1,4 @@
-import { MODULE_NAME } from "./const";
+import { MODULE_NAME } from "./const.js";
 
 export function registerSettings() {
     game.settings.register(MODULE_NAME, "debug", {

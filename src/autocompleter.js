@@ -1,5 +1,5 @@
-import { logger } from "./logger";
-import { DATA_GETTERS, DATA_MODE } from "./package-config";
+import { logger } from "./logger.js";
+import { DATA_GETTERS, DATA_MODE } from "./package-config.js";
 
 export class Autocompleter extends Application {
     /**

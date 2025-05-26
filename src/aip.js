@@ -1,3 +1,19 @@
-import { registerForHooks } from "./hooks/hooks";
+import { defineAPI } from "./api.js";
+import { registerSettings } from "./settings.js";
+import { PACKAGE_CONFIG } from "./package-config.js";
+import { logger } from "./logger.js";
+import { registerFields } from "./field-registration.js";
 
-registerForHooks();
+Hooks.on("init", () => {
+    defineAPI();
+    registerSettings();
+})
+
+Hooks.on("setup", () => {
+    CONFIG.debug.aip = false;
+    logger.info("Setting up Autocomplete Inline Properties");
+
+    Hooks.callAll("aipSetup", PACKAGE_CONFIG);
+    registerFields(PACKAGE_CONFIG);
+    Hooks.callAll("aipReady");
+})

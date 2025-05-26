@@ -1,11 +1,12 @@
 # Autocomplete Inline Properties
 
-[![Checks](https://github.com/ghost-fvtt/FVTT-Autocomplete-Inline-Properties/workflows/Checks/badge.svg)](https://github.com/ghost-fvtt/FVTT-Autocomplete-Inline-Properties/actions)
-![Supported Foundry Versions](https://img.shields.io/endpoint?url=https://foundryshields.com/version?url=https://github.com/ghost-fvtt/FVTT-Autocomplete-Inline-Properties/releases/latest/download/module.json)
-![Latest Release Download Count](https://img.shields.io/github/downloads/ghost-fvtt/FVTT-Autocomplete-Inline-Properties/latest/module.zip)
-[![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fautocomplete-inline-properties&colorB=4aa94a)](https://forge-vtt.com/bazaar#package=autocomplete-inline-properties)
-[![Foundry Hub Endorsements](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Fautocomplete-inline-properties%2Fshield%2Fendorsements)](https://www.foundryvtt-hub.com/package/autocomplete-inline-properties/)
-[![Ko-fi](https://img.shields.io/badge/Ko--fi-ghostfvtt-00B9FE?logo=kofi)](https://ko-fi.com/ghostfvtt)
+[![ko-fi](https://img.shields.io/badge/Ko--Fi-farling-success)](https://ko-fi.com/farling)
+[![patreon](https://img.shields.io/badge/Patreon-amusingtime-success)](https://patreon.com/amusingtime)
+[![paypal](https://img.shields.io/badge/Paypal-farling-success)](https://paypal.me/farling)
+![GitHub License](https://img.shields.io/github/license/farling42/FVTT-Autocomplete-Inline-Properties)
+![Foundry Info](https://img.shields.io/badge/Foundry-v10-informational)![Foundry Info](https://img.shields.io/badge/Foundry-v11-informational)![Foundry Info](https://img.shields.io/badge/Foundry-v12-informational)![Foundry Info](https://img.shields.io/badge/Foundry-v10-informational)
+![Latest Release Download Count](https://img.shields.io/github/downloads/farling42/FVTT-Autocomplete-Inline-Properties/latest/module.zip)
+![Forge installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2FFVTT-Autocomplete-Inline-Properties)
 
 # UNDER NEW MANAGEMENT
 

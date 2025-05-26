@@ -1,6 +1,6 @@
-import { MODULE_NAME } from "./const";
-import { DATA_MODE, DATA_GETTERS, PACKAGE_CONFIG } from "./package-config";
-import { refreshPackageConfig } from "./field-registration";
+import { MODULE_NAME } from "./const.js";
+import { DATA_MODE, DATA_GETTERS, PACKAGE_CONFIG } from "./package-config.js";
+import { refreshPackageConfig } from "./field-registration.js";
 
 const API = {
     CONST: {

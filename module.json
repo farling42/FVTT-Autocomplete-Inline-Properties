@@ -1,9 +1,7 @@
 {
-    "name": "autocomplete-inline-properties",
     "id": "autocomplete-inline-properties",
     "title": "Autocomplete Inline Properties",
     "description": "Add inline property autocompletion for fields that can use inline properties or otherwise reference document data.",
-    "author": "Cole Schultz (cole#9640), Johannes Loher (ghost#2000)",
     "authors": [
         {
             "name": "Cole Schultz",
@@ -14,21 +12,28 @@
             "email": "johannes.loher@fg4f.de",
             "discord": "ghost#2000",
             "ko-fi": "ghostfvtt"
-        }
+        },
+        {
+			"name": "Farling",
+			"url": "https://github.com/farling42",
+			"email": "foundryvtt@amusingtime.uk",
+			"discord": "farling",
+			"ko-fi": "farling",
+			"patreon": "amusingtime",
+			"twitter": "@shambles42"
+		}
     ],
-    "url": "https://github.com/ghost-fvtt/FVTT-Autocomplete-Inline-Properties",
-    "license": "https://raw.githubusercontent.com/ghost-fvtt/FVTT-Autocomplete-Inline-Properties/v2.9.4/LICENSE.md",
-    "readme": "https://raw.githubusercontent.com/ghost-fvtt/FVTT-Autocomplete-Inline-Properties/v2.9.4/README.md",
-    "bugs": "https://github.com/ghost-fvtt/FVTT-Autocomplete-Inline-Properties/issues",
-    "changelog": "https://raw.githubusercontent.com/ghost-fvtt/FVTT-Autocomplete-Inline-Properties/v2.9.4/CHANGELOG.md",
+    "url": "https://github.com/farling42/FVTT-Autocomplete-Inline-Properties",
+    "license": "https://raw.githubusercontent.com/farling42/FVTT-Autocomplete-Inline-Properties/v2.9.4/LICENSE.md",
+    "readme": "https://raw.githubusercontent.com/farling42/FVTT-Autocomplete-Inline-Properties/v2.9.4/README.md",
+    "bugs": "https://github.com/farling42/FVTT-Autocomplete-Inline-Properties/issues",
+    "changelog": "https://raw.githubusercontent.com/farling42/FVTT-Autocomplete-Inline-Properties/v2.9.4/CHANGELOG.md",
     "version": "2.9.4",
-    "minimumCoreVersion": "0.8.5",
-    "compatibleCoreVersion": "10",
     "compatibility": {
-        "minimum": "0.8.5",
+        "minimum": "11",
         "verified": "11"
     },
-    "esmodules": ["./aip.js"],
+    "esmodules": ["./src/aip.js"],
     "styles": ["./styles/aip.css"],
     "languages": [
         {
@@ -37,25 +42,24 @@
             "path": "./lang/en.json"
         }
     ],
-    "manifest": "https://github.com/ghost-fvtt/FVTT-Autocomplete-Inline-Properties/releases/latest/download/module.json",
-    "download": "https://github.com/ghost-fvtt/FVTT-Autocomplete-Inline-Properties/releases/download/v2.9.4/module.zip",
-    "manifestPlusVersion": "1.2.0",
+    "manifest": "https://github.com/farling42/FVTT-Autocomplete-Inline-Properties/releases/latest/download/module.json",
+    "download": "https://github.com/farling42/FVTT-Autocomplete-Inline-Properties/releases/download/v2.9.4/module.zip",
     "media": [
         {
             "type": "screenshot",
-            "url": "https://raw.githubusercontent.com/ghost-fvtt/FVTT-Autocomplete-Inline-Properties/master/media/autocompleting-active-effect-keys.jpg",
+            "url": "https://raw.githubusercontent.com/farling42/FVTT-Autocomplete-Inline-Properties/master/media/autocompleting-active-effect-keys.jpg",
             "caption": "Autocompleting ActiveEffect Keys"
         },
         {
             "type": "cover",
-            "url": "https://raw.githubusercontent.com/ghost-fvtt/FVTT-Autocomplete-Inline-Properties/master/media/autocompleting-active-effect-keys.jpg",
+            "url": "https://raw.githubusercontent.com/farling42/FVTT-Autocomplete-Inline-Properties/master/media/autocompleting-active-effect-keys.jpg",
             "caption": "Autocomplete Inline Properties"
         },
         {
             "type": "video",
-            "url": "https://raw.githubusercontent.com/ghost-fvtt/FVTT-Autocomplete-Inline-Properties/master/media/arrow-keys-showcase.mp4",
+            "url": "https://raw.githubusercontent.com/farling42/FVTT-Autocomplete-Inline-Properties/master/media/arrow-keys-showcase.mp4",
             "loop": true,
-            "thumbnail": "https://raw.githubusercontent.com/ghost-fvtt/FVTT-Autocomplete-Inline-Properties/master/media/arrow-keys-showcase-thumb.jpg",
+            "thumbnail": "https://raw.githubusercontent.com/farling42/FVTT-Autocomplete-Inline-Properties/master/media/arrow-keys-showcase-thumb.jpg",
             "caption": "Showcase of selecting properties with arrow keys"
         }
     ]

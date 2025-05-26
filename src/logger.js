@@ -1,4 +1,4 @@
-import { MODULE_ABBREVIATION, MODULE_NAME } from "./const";
+import { MODULE_ABBREVIATION, MODULE_NAME } from "./const.js";
 
 const loggingContext = MODULE_ABBREVIATION;
 const loggingSeparator = "|";
