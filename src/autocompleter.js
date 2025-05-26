@@ -74,7 +74,7 @@ export class Autocompleter extends Application {
 
     /** @override */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["autocompleter"],
             template: "./modules/autocomplete-inline-properties/templates/autocompleter.hbs",
             minWidth: 300,
@@ -95,7 +95,7 @@ export class Autocompleter extends Application {
      * @private
      */
     _keyWithTrailingDot(key) {
-        const data = getProperty(this.targetData, key);
+        const data =foundry.utils.getProperty(this.targetData, key);
         return key + (data && typeof data === "object" ? "." : "");
     }
 
@@ -130,7 +130,7 @@ export class Autocompleter extends Application {
      */
     get _dataAtPath() {
         const path = this.pathWithoutPartial;
-        const value = path?.length ? getProperty(this.targetData, path) : this.targetData;
+        const value = path?.length ?foundry.utils.getProperty(this.targetData, path) : this.targetData;
         if (value === null || value === undefined) return [];
         return Object.entries(value)
             .map(([key, value]) => ({
@@ -283,7 +283,7 @@ export class Autocompleter extends Application {
     async _render(force = false, options = {}) {
         // Set location to be just above the target
         const targetRect = this.target.getBoundingClientRect();
-        mergeObject(this.position, {
+        foundry.utils.mergeObject(this.position, {
             width: targetRect.width,
             left: targetRect.left,
         });
