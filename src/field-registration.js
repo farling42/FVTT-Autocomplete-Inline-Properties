@@ -70,9 +70,10 @@ let _summonerButton = null;
  */
 function registerFieldConfig(app, fieldConfig) {
     /** @type {HTMLElement | undefined} */
-    const sheetElement = app._element?.[0];
+    const sheetElement = app._element?.[0] ?? app.element;
     if (!sheetElement) {
-        logger.debug("Application does not have an HTML element, skipping registering field.", app, fieldConfig);
+        logger.error("Application does not have an HTML element, skipping registering field.", app, fieldConfig);
+        return;
     }
 
     // Check that we get valid data for the given application. If not, skip adding Autocomplete to this field.

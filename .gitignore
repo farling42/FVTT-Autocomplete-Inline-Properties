@@ -4,3 +4,4 @@ node_modules/
 foundry.js
 dist/
 foundryconfig.json
+autocomplete-inline-properties.lock
