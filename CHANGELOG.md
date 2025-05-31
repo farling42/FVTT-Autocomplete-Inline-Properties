@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 3.0.3
+
+- Fixes an issue where the (module).API.PACKAGE_CONFIG was undefined rather than the correct object.
+
 ### 3.0.2
 
 - DND5E: Some updates to support the correct fields in actor proficiencies and weapon damage and attacks (also working in Foundry V13).
