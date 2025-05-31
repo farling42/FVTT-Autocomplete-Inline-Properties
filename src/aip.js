@@ -5,6 +5,7 @@ import { logger } from "./logger.js";
 import { registerFields } from "./field-registration.js";
 
 Hooks.on("init", () => {
+    setPackageConfig();
     defineAPI();
     registerSettings();
 })
@@ -13,7 +14,6 @@ Hooks.on("setup", () => {
     CONFIG.debug.aip = false;
     logger.info("Setting up Autocomplete Inline Properties");
 
-    setPackageConfig();
     Hooks.callAll("aipSetup", PACKAGE_CONFIG);
     registerFields(PACKAGE_CONFIG);
     Hooks.callAll("aipReady");
