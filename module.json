@@ -30,8 +30,8 @@
     "changelog": "https://raw.githubusercontent.com/farling42/FVTT-Autocomplete-Inline-Properties/v2.9.4/CHANGELOG.md",
     "version": "2.9.4",
     "compatibility": {
-        "minimum": "11",
-        "verified": "12"
+        "minimum": 11,
+        "verified": 13.345
     },
     "esmodules": ["./src/aip.js"],
     "styles": ["./styles/aip.css"],

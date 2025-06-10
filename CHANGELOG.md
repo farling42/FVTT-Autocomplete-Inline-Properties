@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 3.0.4
+
+- Set verified to 13.345 (for DND5E at least)
+
 ### 3.0.3
 
 - Fixes an issue where the (module).API.PACKAGE_CONFIG was undefined rather than the correct object.
