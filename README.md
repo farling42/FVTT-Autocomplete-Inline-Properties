@@ -56,52 +56,10 @@ Systems and modules can also add support for their sheets on their own side by i
 the AIP configuration using the `aipSetup` hook event. See [CONTRIBUTING.md](CONTRIBUTING.md) for a guide on how to add
 support for your system or module.
 
+### Installation
 
-### Prerequisites
-
-In order to build this module, recent versions of `node` and `npm` are required. Most likely using `yarn` also works but
-only `npm` is officially supported. We recommend using the latest lts version of `node`.  You also need to install the
-project's dependencies. To do so, run
-
-```
-npm install
-```
-
-### Building
-
-You can build the project by running
-
-```
-npm run build
-```
-
-Alternatively, you can run
-
-```
-npm run watch
-```
-
-to watch for changes and automatically build as necessary.
-
-### Linking the built project to Foundry VTT
-
-In order to provide a fluent development experience, it is recommended to link the built project to your local Foundry
-VTT installation's data folder. In order to do so, first add a file called `foundryconfig.json` to the project root with
-the following content:
-
-```
-{
-    "dataPath": "<path to your home directory>/.local/share/FoundryVTT"
-}
-```
-
-On platforms other than Linux you need to adjust the path accordingly.
-
-Then run
-
-```
-npm run link-package
-```
+Whereas previously a lot of npm and node modules were required, the more recent versions (since I took over) can simply
+be developed in-situ in the module's subfolder in Foundry's user data area.
 
 ## License
 
