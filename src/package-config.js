@@ -385,5 +385,50 @@ export function setPackageConfig() {
                 },
             ],
         },
+        {
+            packageName: "cosmere-rpg",
+            sheetClasses: [
+                {
+                    name: "ActiveEffectConfig",
+                    fieldConfigs: [
+                        {
+                            selector: `.tab[data-tab="effects"] .key input[type="text"]`,
+                            defaultPath: "system",
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.OWNING_ACTOR_DATA,
+                        },
+                        {
+                            selector: `.tab[data-tab="effects"] .value input[type="text"]`,
+                            defaultPath: "system",
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.OWNING_ACTOR_DATA,
+                            inlinePrefix: "@",
+                        },
+                    ],
+                },
+                {
+                    name: "ItemEditEventRuleDialog",
+                    fieldConfigs: [
+                        {
+                            selector: `.edit-event-rule input[type="text"][name="key"]`,
+                            defaultPath: "system",
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.OWNING_ACTOR_DATA,
+                        },
+                        {
+                            selector: `.edit-event-rule input[type="text"][name="value"]`,
+                            defaultPath: "system",
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.OWNING_ACTOR_DATA,
+                            inlinePrefix: "@",
+                        },
+                    ],
+                },
+            ],
+        }
     ];
 }
