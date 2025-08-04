@@ -30,6 +30,11 @@ export const DATA_MODE = {
     OWNING_ACTOR_ROLL_DATA: "actor-roll",
 
     /**
+     * The data of the sheet's document's target actor
+     */
+    TARGET_ACTOR_DATA: "target-actor",
+
+    /**
      * Custom data as defined by the `customDataGetter`
      */
     CUSTOM: "custom",
@@ -46,6 +51,8 @@ export const DATA_GETTERS = {
         _getSheetDocumentParentActor(sheet)?.toObject(false) ?? _getFallbackActorData(),
     [DATA_MODE.OWNING_ACTOR_ROLL_DATA]: (sheet) =>
         _getSheetDocumentParentActor(sheet)?.getRollData() ?? _getFallbackActorRollData(),
+    [DATA_MODE.TARGET_ACTOR_DATA]: (sheet) =>
+        _getSheetDocumentTargetActor(sheet)?.toObject(false) ?? _getFallbackActorData(),
     [DATA_MODE.CUSTOM]: (sheet, customDataGetter) => customDataGetter(sheet),
 };
 
@@ -59,6 +66,18 @@ export const DATA_GETTERS = {
 function _getSheetDocumentParentActor(sheet) {
     const parent = sheet.document?.actor ?? sheet.document?.parent;
     return parent && parent instanceof Actor ? parent : null;
+}
+
+/**
+ * Gets the target actor of a given `FormApplication`'s document.
+ * If the document does not have a target, or the target is not an Actor, returns null.
+ * @param {FormApplication} sheet
+ * @returns {Actor | null}
+ * @private
+ */
+function _getSheetDocumentTargetActor(sheet) {
+    const target = sheet.document?.target;
+    return target && target instanceof Actor ? target : null;
 }
 
 let _dummyActors;
