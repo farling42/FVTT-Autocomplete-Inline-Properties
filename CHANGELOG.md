@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 3.0.5
+
+- Add support for Cosmere RPG, from @damccull
+- Add new OWNING_ACTOR_DATA rule, from @Woazboat
+
 ### 3.0.4
 
 - Set verified to 13.345 (for DND5E at least)
