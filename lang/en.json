@@ -1,7 +1,14 @@
 {
     "AIP": {
         "SystemNotSupported": "Your game system is not yet supported by Autocomplete Inline Properties.",
-        "DebugName": "Debug Mode",
-        "DebugHint": "Enable to print debug logs. Other debugging features might be added in the future."
+        "debug": {
+            "name": "Debug Mode",
+            "hint": "Enable to print debug logs. Other debugging features might be added in the future."
+        },
+        "showButton": {
+            "name": "Show Button",
+            "hint": "Show @ button at right-end of field to allow click to popup the available fields"
+        }
+
     }
 }

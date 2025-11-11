@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 - PF1 (11.8): Support ChangeEditor formula field
 - ALL: Add 'core' game system to support the default ActiveEffects dialog.
+- Provide module option to disable the '@' button appearing in the relevant fields.
 
 ### 3.0.5
 

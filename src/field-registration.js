@@ -1,3 +1,4 @@
+import { MODULE_NAME } from "./const.js";
 import { Autocompleter } from "./autocompleter.js";
 import { logger } from "./logger.js";
 import { PACKAGE_CONFIG } from "./package-config.js";
@@ -92,7 +93,7 @@ function registerFieldConfig(app, fieldConfig) {
 
         _removeOldEventListeners(targetElement);
 
-        if (fieldConfig.showButton && !targetElement.disabled && !targetElement.readOnly) {
+        if (fieldConfig.showButton && !targetElement.disabled && !targetElement.readOnly && game.settings.get(MODULE_NAME, 'showButton')) {
             // Show the summoner button when the user mouses over this field
             targetElement.addEventListener(
                 "mouseenter",
