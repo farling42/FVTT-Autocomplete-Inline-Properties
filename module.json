@@ -31,7 +31,7 @@
     "version": "2.9.4",
     "compatibility": {
         "minimum": 11,
-        "verified": 13.345
+        "verified": 13.350
     },
     "esmodules": ["./src/aip.js"],
     "styles": ["./styles/aip.css"],

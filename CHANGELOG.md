@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 3.1.0
+
+- PF1 (11.8): Support ChangeEditor formula field
+- ALL: Add 'core' game system to support the default ActiveEffects dialog.
+
 ### 3.0.5
 
 - Add support for Cosmere RPG, from @damccull
