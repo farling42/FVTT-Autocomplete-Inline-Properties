@@ -10,8 +10,8 @@ Hooks.on("init", () => {
     registerSettings();
 })
 
-Hooks.on("setup", () => {
-    CONFIG.debug.aip = false;
+Hooks.on("ready", () => {
+    CONFIG.debug.aip ??= false;
     logger.info("Setting up Autocomplete Inline Properties");
 
     Hooks.callAll("aipSetup", PACKAGE_CONFIG);
