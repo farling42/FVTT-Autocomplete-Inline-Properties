@@ -5,7 +5,7 @@ export function registerSettings() {
     game.settings.register(MODULE_NAME, "showButton", {
         name: "AIP.showButton.name",
         hint: "AIP.showButton.hint",
-        scope: "client",
+        scope: "world",
         config: true,
         type: Boolean,
         default: true,
