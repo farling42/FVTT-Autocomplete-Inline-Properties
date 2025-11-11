@@ -96,7 +96,7 @@ function registerFieldConfig(app, fieldConfig) {
 
         _removeOldEventListeners(targetElement);
 
-        if (fieldConfig.showButton && !targetElement.disabled) {
+        if (fieldConfig.showButton && !targetElement.disabled && !targetElement.readOnly) {
             // Show the summoner button when the user mouses over this field
             targetElement.addEventListener(
                 "mouseenter",
