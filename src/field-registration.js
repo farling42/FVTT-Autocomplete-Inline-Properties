@@ -8,12 +8,8 @@ import { PACKAGE_CONFIG } from "./package-config.js";
  * @returns {void}
  */
 export function registerFields(packageConfig) {
-    if (!packageConfig.find((pkg) => pkg.packageName === game.system.id)) {
-        ui.notifications.warn(game.i18n.localize("AIP.SystemNotSupported"));
-    }
-
     for (const pkg of packageConfig) {
-        if (pkg.packageName !== game.system.id && !game.modules.get(pkg.packageName)?.active) continue;
+        if (pkg.packageName !== game.system.id && pkg.packageName !== 'core' && !game.modules.get(pkg.packageName)?.active) continue;
 
         for (const sheetClass of pkg.sheetClasses) {
             logger.debug(`Registering for "render${sheetClass.name}" hook event`);
@@ -33,7 +29,7 @@ export function registerFields(packageConfig) {
 export function refreshPackageConfig(app, packageName) {
     const pkgs = PACKAGE_CONFIG.filter(
         (pkg) =>
-            (pkg.packageName === game.system.id || game.modules.get(pkg.packageName)?.active) &&
+            (pkg.packageName === game.system.id || pkg.packageName === 'core' || game.modules.get(pkg.packageName)?.active) &&
             (packageName === undefined || packageName === pkg.packageName),
     );
 

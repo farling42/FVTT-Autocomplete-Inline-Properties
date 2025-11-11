@@ -184,6 +184,32 @@ export let PACKAGE_CONFIG;
 export function setPackageConfig() {
     PACKAGE_CONFIG = [
         {
+            // The base classes provided by core Foundry
+            packageName: "core",
+            sheetClasses: [
+                {
+                    name: "ActiveEffectConfig",
+                    fieldConfigs: [
+                        {
+                            selector: `.tab[data-tab="${(game.release.generation < 13) ? 'effects' : 'changes'}"] .key input[type="text"]`,
+                            defaultPath: "system",
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.OWNING_ACTOR_DATA,
+                        },
+                        {
+                            selector: `.tab[data-tab="${(game.release.generation < 13) ? 'effects' : 'changes'}"] .key input[type="text"]`,
+                            defaultPath: "system",
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.OWNING_ACTOR_DATA,
+                            inlinePrefix: "@",
+                        },
+                    ],
+                },
+            ]
+        },
+        {
             // contributed by https://github.com/schultzcole
             packageName: "dnd5e",
             sheetClasses: [
@@ -253,18 +279,6 @@ export function setPackageConfig() {
                         }
                     ]),
                 },
-                {
-                    name: "ActiveEffectConfig",
-                    fieldConfigs: [
-                        {
-                            selector: `.tab[data-tab="${(game.release.generation < 13) ? 'effects' : 'changes'}"] .key input[type="text"]`,
-                            defaultPath: "system",
-                            showButton: true,
-                            allowHotkey: true,
-                            dataMode: DATA_MODE.OWNING_ACTOR_DATA,
-                        },
-                    ],
-                },
             ],
         },
         {
@@ -307,6 +321,17 @@ export function setPackageConfig() {
                 },
                 {
                     name: "ItemActionSheet",
+                    fieldConfigs: [
+                        {
+                            selector: `input.formula[type="text"]`,
+                            showButton: true,
+                            allowHotkey: true,
+                            dataMode: DATA_MODE.ROLL_DATA,
+                        },
+                    ],
+                },
+                {
+                    name: "ChangeEditor",
                     fieldConfigs: [
                         {
                             selector: `input.formula[type="text"]`,
@@ -365,68 +390,11 @@ export function setPackageConfig() {
                         },
                     ]),
                 },
-                {
-                    name: "ActiveEffectConfig",
-                    fieldConfigs: [
-                        {
-                            selector: `.tab[data-tab="effects"] .key input[type="text"]`,
-                            defaultPath: "system",
-                            showButton: true,
-                            allowHotkey: true,
-                            dataMode: DATA_MODE.OWNING_ACTOR_DATA,
-                        },
-                    ],
-                },
-            ],
-        },
-        {
-            packageName: "ds4",
-            sheetClasses: [
-                {
-                    name: "ActiveEffectConfig",
-                    fieldConfigs: [
-                        {
-                            selector: `.tab[data-tab="effects"] .key input[type="text"]`,
-                            defaultPath: "system",
-                            showButton: true,
-                            allowHotkey: true,
-                            dataMode: DATA_MODE.OWNING_ACTOR_DATA,
-                        },
-                        {
-                            selector: `.tab[data-tab="effects"] .value input[type="text"]`,
-                            defaultPath: "system",
-                            showButton: true,
-                            allowHotkey: true,
-                            dataMode: DATA_MODE.OWNING_ACTOR_DATA,
-                            inlinePrefix: "@",
-                        },
-                    ],
-                },
             ],
         },
         {
             packageName: "cosmere-rpg",
             sheetClasses: [
-                {
-                    name: "ActiveEffectConfig",
-                    fieldConfigs: [
-                        {
-                            selector: `.tab[data-tab="effects"] .key input[type="text"]`,
-                            defaultPath: "system",
-                            showButton: true,
-                            allowHotkey: true,
-                            dataMode: DATA_MODE.OWNING_ACTOR_DATA,
-                        },
-                        {
-                            selector: `.tab[data-tab="effects"] .value input[type="text"]`,
-                            defaultPath: "system",
-                            showButton: true,
-                            allowHotkey: true,
-                            dataMode: DATA_MODE.OWNING_ACTOR_DATA,
-                            inlinePrefix: "@",
-                        },
-                    ],
-                },
                 {
                     name: "ItemEditEventRuleDialog",
                     fieldConfigs: [
@@ -448,6 +416,6 @@ export function setPackageConfig() {
                     ],
                 },
             ],
-        }
+        },
     ];
 }
