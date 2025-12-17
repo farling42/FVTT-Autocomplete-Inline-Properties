@@ -89,7 +89,7 @@ function registerFieldConfig(app, fieldConfig) {
         (e) => e.tagName === "TEXTAREA" || (e.tagName === "INPUT" && e.type === "text"),
     );
     for (const targetElement of elements) {
-        const key = app.appId + targetElement.name;
+        const key = app.id + targetElement.name;
 
         _removeOldEventListeners(targetElement);
 

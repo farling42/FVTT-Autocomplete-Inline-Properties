@@ -306,7 +306,7 @@ export class Autocompleter extends HandlebarsApplicationMixin(ApplicationV2) {
 
         // Set location to be just below the target
         const targetRect = this.target.getBoundingClientRect();
-        options.position.top = targetRect.bottom;  // targetRect.top - this.element.getBoundingClientRect().height - 5;
+        options.position.top = targetRect.bottom;  // temporary, fixed in _updatePosition
         options.position.width = Math.max(300,targetRect.width);
         options.position.left = targetRect.left;
         options.force = true; // maximimize & bringToFront
