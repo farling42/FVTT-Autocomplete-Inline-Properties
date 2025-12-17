@@ -8,8 +8,9 @@
             </li>
         {{/each}}
     </ol>
-    <form class="aip-form flexrow">
-        <input class="aip-input" type="text" value="{{path}}" spellcheck="false">
+    <div class="aip-form flexrow">
+        <button data-action="back" class="aip-back"><i class="fas fa-turn-left-up"></i></button>
+        <input class="aip-input" type="text" value="{{path}}" spellcheck="false" autofocus>
         <button type="submit" class="aip-insert"><i class="fas fa-i-cursor"></i></button>
-    </form>
+    </div>
 </div>

@@ -79,13 +79,15 @@ button.autocompleter-summon > i {
     flex: 1;
 }
 
-.autocompleter button.aip-insert {
+.autocompleter button.aip-insert, 
+.autocompleter button.aip-back {
     flex: 0 0 25px;
     text-align: center;
     line-height: unset;
     margin: 0;
 }
 
-.autocompleter button.aip-insert > i {
+.autocompleter button.aip-insert > i,
+.autocompleter button.aip-back > i {
     margin: unset;
 }

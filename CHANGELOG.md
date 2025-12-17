@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 3.2.0
+
+- Update to ApplicationV2 (and thus change the minimum supported Foundry to V13).
+- Clicking on the list of presented fields will copy the field into the text input box. Fixes #7
+- Add a "back" button to allow for pure pointer navigation through the available fields.
+- Selected field is added to the text field at the current input position (replacing any existing selection). Fixes #6
+- The auto-completer closes when clicking outside of the popup. Fixes #5
+
 ### 3.1.0
 
 - PF1 (11.8): Support ChangeEditor formula field

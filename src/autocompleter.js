@@ -1,7 +1,38 @@
 import { logger } from "./logger.js";
 import { DATA_GETTERS, DATA_MODE } from "./package-config.js";
 
-export class Autocompleter extends Application {
+const { HandlebarsApplicationMixin,ApplicationV2 } = foundry.applications.api
+
+export class Autocompleter extends HandlebarsApplicationMixin(ApplicationV2) {
+
+    static DEFAULT_OPTIONS = {
+        classes: ["autocompleter"],
+        tag: 'form',
+        form: {
+            submitOnChange: false,
+            closeOnSubmit: true,
+            handler: this.#onSubmitForm,
+        },
+        position: {
+            //minWidth: 300,
+            height: "auto",
+        },
+        window: {
+            //frame: false,
+            positioned: true,
+            minimizable: false
+        },
+        actions: {
+            back: this.#onBack
+        },
+    }
+
+    static PARTS = {
+        form: { template: "./modules/autocomplete-inline-properties/templates/autocompleter.hbs" }
+    }
+
+    static currentPopup;
+
     /**
      *
      * @param {object} data
@@ -48,10 +79,6 @@ export class Autocompleter extends Application {
          * @type {number | null}
          */
         this.selectedCandidateIndex = null;
-
-        // Currently unused
-        this.targetSelectionStart = null;
-        this.targetSelectionEnd = null;
     }
 
     /**
@@ -70,16 +97,6 @@ export class Autocompleter extends Application {
         const getter = DATA_GETTERS[dataMode];
         if (!getter) throw new Error(`Unrecognized data mode "${dataMode}"`);
         return getter(sheet, customDataGetter);
-    }
-
-    /** @override */
-    static get defaultOptions() {
-        return foundry.utils.mergeObject(super.defaultOptions, {
-            classes: ["autocompleter"],
-            template: "./modules/autocomplete-inline-properties/templates/autocompleter.hbs",
-            minWidth: 300,
-            height: "auto",
-        });
     }
 
     /** @override */
@@ -104,7 +121,7 @@ export class Autocompleter extends Application {
      * @returns {HTMLInputElement}
      */
     get inputElement() {
-        return this.element?.[0]?.querySelector("input.aip-input");
+        return this.element?.querySelector("input.aip-input");
     }
 
     /**
@@ -150,7 +167,7 @@ export class Autocompleter extends Application {
      * @returns {{ key: string, value: string }}
      * @private
      */
-    static _formatData({ key, value }) {
+    static #formatData({ key, value }) {
         let formattedValue;
         switch (typeof value) {
             case "undefined":
@@ -192,7 +209,7 @@ export class Autocompleter extends Application {
      * @returns {{key: string, value: string}[]}
      */
     get sortedDataAtPathFormatted() {
-        return this.sortedDataAtPath.map(Autocompleter._formatData);
+        return this.sortedDataAtPath.map(Autocompleter.#formatData);
     }
 
     /**
@@ -234,7 +251,8 @@ export class Autocompleter extends Application {
     }
 
     /** @override */
-    getData() {
+    async _prepareContext(options)  {
+        const context = await super._prepareContext(options);
         const escapedCombinedPath = "^" + this.rawPath.replace(/\./, "\\.");
         let highlightedEntry = this.selectedCandidateIndex;
         const dataEntries = this.sortedDataAtPathFormatted.map(({ key, value }, index) => {
@@ -252,67 +270,66 @@ export class Autocompleter extends Application {
         });
 
         highlightedEntry = highlightedEntry ?? 0;
-        return {
+        Object.assign(context, {
             keyPrefix: this.keyPrefix,
             path: this.rawPath,
             dataEntries,
             highlightedEntry,
-        };
+        });
+
+        return context;
     }
 
     /** @override */
-    activateListeners($html) {
-        super.activateListeners($html);
-        const html = $html[0];
+    async _onRender(context, options) {
+        await super._onRender(context, options);
 
-        const input = html.querySelector(`input.aip-input`);
+        //this.element.addEventListener("focusout", () => { this.close(); });
+
+        const input = this.element.querySelector(`input.aip-input`);
+        input.addEventListener("input", this.#onInputChanged.bind(this));
+        input.addEventListener("keydown", this.#onInputKeydown.bind(this));
+
+        // Ensure focus remains at the END of the input field at all times.
         input.focus();
         input.setSelectionRange(input.value.length, input.value.length);
 
-        input.addEventListener("focusout", () => {
-            this.close();
-        });
-        input.addEventListener("input", this._onInputChanged.bind(this));
-        input.addEventListener("keydown", this._onInputKeydown.bind(this));
-
-        const insert = html.querySelector(`form.aip-form`);
-        insert.addEventListener("submit", this._onSubmit.bind(this));
+        for (const item of this.element.querySelectorAll(`span.aip-key`)) {
+            item.addEventListener("click", this.#onItemClick.bind(this));
+        }
+        Autocompleter.currentPopup = this;
     }
 
     /** @override */
-    async _render(force = false, options = {}) {
-        // Set location to be just above the target
+    _configureRenderOptions(options) {
+        super._configureRenderOptions(options);
+
+        // Set location to be just below the target
         const targetRect = this.target.getBoundingClientRect();
-        foundry.utils.mergeObject(this.position, {
-            width: targetRect.width,
-            left: targetRect.left,
-        });
-        return super._render(force, options).then((result) => {
-            this.setPosition({ top: targetRect.top - this.element[0].getBoundingClientRect().height - 5 });
-            this.bringToTop();
-            return result;
-        });
+        options.position.top = targetRect.bottom;  // targetRect.top - this.element.getBoundingClientRect().height - 5;
+        options.position.width = Math.max(300,targetRect.width);
+        options.position.left = targetRect.left;
+        options.force = true; // maximimize & bringToFront
+    }
+
+    _updatePosition(position) {
+        /* Because this.element.getBoundingClientRect() isn't available in _configureRenderOptions() */
+        const targetRect = this.target.getBoundingClientRect();
+        position.top = targetRect.top - this.element.getBoundingClientRect().height - 5;
+        return super._updatePosition(position);
     }
 
     /** @override */
-    async _renderOuter(options) {
-        const html = await super._renderOuter(options);
-        html[0].querySelector("header.window-header").remove();
+    async _renderFrame(options) {
+        /* Hide the window title (don't delete, so the text can be changed, but still ignored) */
+        const html = await super._renderFrame(options);
+        html.querySelector("header.window-header").style.display = "none"; //remove();
         return html;
-    }
-
-    /**
-     * Overridden in order to avoid an issue with {@link Application._replaceHTML} trying to set the window title, which
-     * doesn't exist. Additionally, this is always a popOut window, so we can omit the non-popOut case.
-     * @override
-     */
-    _replaceHTML(element, html) {
-        if (!element.length) return;
-        element.find(".window-content").html(html);
     }
 
     /** @override */
     async close(options = {}) {
+        if (Autocompleter.currentPopup === this) Autocompleter.currentPopup = null;
         this.onClose();
         return super.close(options);
     }
@@ -320,7 +337,7 @@ export class Autocompleter extends Application {
     /**
      * @private
      */
-    _onInputChanged() {
+    #onInputChanged() {
         const input = this.inputElement;
         this.rawPath = input.value;
         this.selectedCandidateIndex = null;
@@ -331,7 +348,7 @@ export class Autocompleter extends Application {
      * @param {KeyboardEvent} event
      * @private
      */
-    _onInputKeydown(event) {
+    #onInputKeydown(event) {
         switch (event.key) {
             case "Escape": {
                 this.close();
@@ -345,7 +362,7 @@ export class Autocompleter extends Application {
                         ? ((this.selectedCandidateIndex ?? this.indexOfCurrentBestMatch) + 1) %
                           this.sortedDataAtPath.length
                         : null;
-                this.render(false);
+                this.render();
                 return;
             }
             case "ArrowDown": {
@@ -358,7 +375,7 @@ export class Autocompleter extends Application {
                               this.sortedDataAtPath.length) %
                           this.sortedDataAtPath.length
                         : null;
-                this.render(false);
+                this.render();
                 return;
             }
             case "Tab": {
@@ -372,36 +389,48 @@ export class Autocompleter extends Application {
                     this.rawPath = this._keyWithTrailingDot(selectedOrBestMatch.key);
                 }
                 this.selectedCandidateIndex = null;
-                this.render(false);
+                this.render();
                 return;
             }
         }
+    }
+
+    #onItemClick(event) {
+        const text = event.currentTarget?.innerText;
+        if (text) {
+            this.inputElement.value = this._keyWithTrailingDot(text);
+            this.#onInputChanged();
+        }
+    }
+
+    static #onBack(event) {
+        event.preventDefault();
+        const text = this.inputElement.value;
+        const last = text.slice(0,-1).lastIndexOf('.');  // ignore trailing '.'
+        this.inputElement.value = (last > 0) ? text.slice(0, last+1) : "";  // include the trailing '.'
+        this.#onInputChanged();
     }
 
     /**
      * @param {Event} event
      * @private
      */
-    async _onSubmit(event) {
+    static async #onSubmitForm(event, form, formData) {
         event.preventDefault();
         const oldValue = this.target.value;
 
-        let spliceStart = oldValue.length;
-        let spliceEnd = oldValue.length;
-        if (Number.isNumeric(this.targetSelectionStart) && Number.isNumeric(this.targetSelectionEnd)) {
-            spliceStart = Math.min(this.targetSelectionStart, this.targetSelectionEnd);
-            spliceEnd = Math.max(this.targetSelectionStart, this.targetSelectionEnd);
-        }
+        const selectionStart = this.target.selectionStart;
+        const selectionEnd = this.target.selectionEnd;
 
-        const preString = oldValue.slice(0, spliceStart);
+        const preString = oldValue.slice(0, selectionStart);
+        const postString = oldValue.slice(selectionEnd);
+
         const preSpacer = !preString.length || preString[preString.length - 1] === " " ? "" : " ";
-        const postString = oldValue.slice(spliceEnd);
         const postSpacer = !postString.length || postString[postString.length - 1] === " " ? "" : " ";
         const insert = this.selectedOrBestMatch?.key ?? this.inputElement.value;
         const fullInsert = `${preSpacer}${this.keyPrefix}${insert}${postSpacer}`;
 
         this.target.focus();
-        await this.close();
 
         const inputEvent = new InputEvent("input", {
             bubbles: true,
@@ -417,3 +446,15 @@ export class Autocompleter extends Application {
         }
     }
 }
+
+Hooks.on('setup', () => {
+    // Global listener to close this dialog when clicking outside of it
+    document.addEventListener("pointerdown", (event) => {
+        const completer = Autocompleter.currentPopup;
+        if (!completer) return;
+        if (event.target.className !== "autocompleter-summon" &&
+            !completer.element.contains(event.target)) {
+            completer.close();
+        }
+    }, { passive: true });
+})
