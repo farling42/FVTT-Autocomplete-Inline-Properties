@@ -8,12 +8,6 @@
 ![Latest Release Download Count](https://img.shields.io/github/downloads/farling42/FVTT-Autocomplete-Inline-Properties/latest/module.zip)
 ![Forge installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2FFVTT-Autocomplete-Inline-Properties)
 
-# UNDER NEW MANAGEMENT
-
-I have taken over maintenance of the module and will be updating it for Foundry V12 (and V13), starting work in the middle of June (2025).
-
-# README
-
 This module adds an autocompletion and hint UI for sheet fields that can accept inline properties or other document data
 references, for instance a damage field referencing an ability modifier (e.g. `@abilities.dex.mod`), or an
 `ActiveEffect` key (e.g. `data.bonuses.mwak.attack`).
